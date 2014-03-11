@@ -1,0 +1,33 @@
+{
+    "manifest_version": 2,
+    "name": "DET-Chat",
+    "version": "0.0.1",
+
+    "description": "",
+    // "update_url": "http://path/to/updateInfo.xml",
+    
+    "app": {
+        "background": {
+            "scripts": ["js/background.js"]
+        }
+    },
+    
+    "icons": {
+//        "16": "icon/16x16.png",
+//        "32": "icon/32x32.png",
+//        "48": "icon/48x48.png",
+//        "64": "icon/64x64.png",
+//        "96": "icon/96x96.png",
+        "128": "icon/logo-128x128.png",
+//        "256": "icon/256x256.png"
+    },
+    
+    "offline_enabled": true,
+    
+    "permissions": [
+        "app.window",
+        "clipboardRead",
+        "clipboardWrite",
+        "storage"
+    ]
+}
