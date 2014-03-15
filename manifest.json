@@ -8,7 +8,7 @@
     
     "app": {
         "background": {
-            "scripts": ["js/background.js"]
+            "scripts": ["js/bgworker.js", "js/background.js"]
         }
     },
     
