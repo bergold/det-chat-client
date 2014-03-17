@@ -36,6 +36,42 @@ var api = (function () {
         
     };
     
+    var apicore_ = function() {
+        if (this instanceof apicore_) {
+            this.buffer_ = [];
+        } else
+            return new apicore_();
+    };
+    
+    (function() {
+        
+        this.add = function(cmd, callback) {
+            this.buffer_.push({
+                cmd: cmd,
+                callback: callback
+            });
+            return this;
+        };
+        this.cmd = add;
+        
+        this.send = function() {
+            var d = [], i;
+            for (i = 0; i < this.buffer_.length; i++) {
+                d.push(this.buffer_[i].cmd);
+            }
+            http(domain, JSON.stringify(d), {
+                complete: function() {
+                    
+                }
+            });
+        };
+        
+    }).call(apicore_.prototype);
+    
+    apicore_.http = http;
+    
+    return apicore_;
+    
 })();
 
 window['api'] = api;
