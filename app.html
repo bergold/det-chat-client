@@ -13,6 +13,7 @@
         <!--<script type="text/javascript" src="js/modules/angular-sanitize.js"></script>-->
         <!--<script type="text/javascript" src="js/modules/angular-animate.js"></script>-->
         <!--<script type="text/javascript" src="js/modules/angular-touch.js"></script>-->
+        <script type="text/javascript" src="js/util.js"></script>
         
         <script type="text/javascript" src="js/app.js"></script>
         <script type="text/javascript" src="js/app/service.js"></script>
@@ -21,6 +22,7 @@
         <script type="text/javascript" src="js/app/controller.js"></script>
     </head>
     <body>
+        <div ng-controller="TestCtrl">Api: {{validapi}}</div>
         <div ng-view>
         </div>
     </body>

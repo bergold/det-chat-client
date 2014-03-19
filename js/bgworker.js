@@ -1,3 +1,13 @@
+/*
+ * File: bgworker.js
+ * Background script for chat-api, storage and bg-checker functionality
+ *
+ * @author: Emil Bergold
+ * @version: 1.0
+ *
+ */
+
+
 // util
 
 var extend = function (obj) {
@@ -170,6 +180,6 @@ var Alarm = function() {};
 
 // no api-function for filtering msgs from all users to this user
 /*var alarm = new Alarm();
-chrome.alarms.onAlarm.addListener(alarm.onFire.bind(alarm));*/
+chrome.alarms.onAlarm.addListener(alarm.onFire.bind(alarm));
 
-window['alarm'] = alarm;
+window['alarm'] = alarm;*/

@@ -1,3 +1,13 @@
+/*
+ * File: background.js
+ * Background script for window handling
+ *
+ * @author: Emil Bergold
+ * @version: 1.0
+ *
+ */
+
+
 var Background = function() {
     this.activeWin = false;
 };

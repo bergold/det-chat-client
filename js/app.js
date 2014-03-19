@@ -1,3 +1,12 @@
+/*
+ * File: app.js
+ * Main entry point
+ *
+ * @author: Emil Bergold
+ * @version: 1.0
+ *
+ */
+
 
 var chat = angular.module('chat', ['ngRoute']);
 
