@@ -37,7 +37,10 @@ chat.factory('auth', ['$q', 'api', function($q, api) {
                     name: un,
                     pw: pw
                 }, function(res) {
-                    defered.resolve(res);
+                    if (false===res)
+                        defered.reject(false);
+                    else
+                        defered.resolve(res);
                 }).send();
             });
             return defered.promise;

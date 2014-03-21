@@ -15,7 +15,7 @@ chat.controller('TestCtrl', ['$scope', 'api', 'auth', function($scope, api, auth
     api().then(function(a) {
         $scope.validapi = true;
         
-        auth.login("emil", "bergold").then(function() {
+        auth.login("emil", "bergie").then(function() {
             console.log("success", arguments);
         },
         function() {
