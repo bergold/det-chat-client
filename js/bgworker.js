@@ -171,7 +171,18 @@ var Alarm = function() {};
         if (isForeground()) return;
         storage.get(["sid", "lastMsg"], function(val) {
             if (val.sid) {
-                
+                var lastMsg = val.lastMsg || 0;
+                api({
+                    error: function(res, xhr)
+                }).cmd({
+                    sid: val.sid,
+                    name: null,
+                    type: "user",
+                    min: lastMsg,
+                    max: -1;
+                }, function(res) {
+                    
+                }).send();
             }
         });
     };

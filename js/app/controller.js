@@ -18,7 +18,7 @@ chat.controller('TestCtrl', ['$scope', 'api', 'auth', function($scope, api, auth
         auth.login("emil", "bergie").then(function() {
             console.log("success", arguments);
         },
-        function() {
+        function(reson) {
             console.log("error", arguments);
         });
     });
