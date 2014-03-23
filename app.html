@@ -22,7 +22,26 @@
         <script type="text/javascript" src="js/app/controller.js"></script>
     </head>
     <body>
-        <div ng-controller="TestCtrl">Api: {{validapi}}</div>
+        <style>
+            td {
+                background: #f4f4f4;
+                margin: 1px;
+                padding: 4px;
+                text-align: left;
+                vertical-align: top;
+            }
+        </style>
+        <div ng-controller="TestCtrl">
+            <table>
+                <tr ng-repeat="test in tests">
+                    <td>{{test.name}}</td>
+                    <td style="word-break: break-word;">{{test.result}}</td>
+                </tr>
+            </table>
+            <button ng-click="testUser()">Test!</button>
+            <button ng-click="testImg()">Test Img!</button>
+            <img ng-src="{{imgSrc}}" />
+        </div>
         <div ng-view>
         </div>
     </body>
