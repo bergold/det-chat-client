@@ -173,13 +173,13 @@ var Alarm = function() {};
             if (val.sid) {
                 var lastMsg = val.lastMsg || 0;
                 api({
-                    error: function(res, xhr)
+                    error: function(res, xhr) {}
                 }).cmd({
                     sid: val.sid,
                     name: null,
                     type: "user",
                     min: lastMsg,
-                    max: -1;
+                    max: -1
                 }, function(res) {
                     
                 }).send();

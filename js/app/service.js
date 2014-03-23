@@ -47,8 +47,38 @@ chat.factory('auth', ['$q', 'api', function($q, api) {
         },
         
         logout: function(sid) {
-            
+            var defered = $q.defer();
+            api().then(function(req) {
+                req({
+                    error: function(res, xhr) {
+                        defered.reject(xhr);
+                    }
+                }).cmd({
+                    cmd: 'logout',
+                    sid: sid
+                }, function(res) {
+                    if (false===res)
+                        defered.reject(false);
+                    else
+                        defered.resolve(res);
+                }).send();
+            });
+            return defered.promise;
         }
         
     };
+}]);
+
+
+// user-service
+chat.provider('user', ['$q', 'api', function($q, api) {
+    
+    this.buffer_ = [];
+    
+    this.$get = function() {
+        return {
+            
+        }
+    };
+    
 }]);
