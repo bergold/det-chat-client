@@ -10,6 +10,9 @@
 
 // definitions
 chat.constant('online_tolerance', 10);
+chat.constant('default_settings', {
+    
+});
 
 
 // api-service
@@ -154,3 +157,34 @@ chat.provider('user', function() {
     }];
     
 });
+
+
+// settings-service
+chat.factory('settings', ['$q', 'default_settings', function($q, default_settings) {
+    return {
+        get: function(keys) {
+            var defered = $q.defer();
+            chrome.storage.sync.get(keys, function(val) {
+                defered.resolve(val);
+            });
+            return defered.promise;
+        },
+        
+        set: function(pairs) {
+            var defered = $q.defer();
+            chrome.storage.sync.set(pairs, function() {
+                defered.resolve(true);
+            });
+            return defered.promise;
+        },
+        
+        clear: function() {
+            chrome.storage.sync.clear();
+        },
+        
+        setDefault: function() {
+            return this.set(default_settings);
+        }
+    };
+}]);
+
