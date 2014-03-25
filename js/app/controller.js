@@ -8,6 +8,34 @@
  */
 
 
+chat.controller('SplashCtrl', ['$scope', function($scope) {
+    
+}]);
+
+chat.controller('LoginCtrl', ['$scope', function($scope) {
+    
+}]);
+
+chat.controller('MainCtrl', ['$scope', '$route', '$routeParams', '$location', function($scope, $route, $routeParams, $location) {
+    
+    $scope.loc = $location;
+    $scope.route = $route;
+    $scope.params = $routeParams;
+    $scope.subview = "html/partials/" + $route.current.locals.subview;
+    
+}]);
+
+
+chat.controller('ChatsCtrl', ['$scope', function($scope) {
+    
+}]);
+
+
+chat.controller('MediaCtrl', ['$scope', function($scope) {
+    
+}]);
+
+
 chat.controller('TestCtrl', ['$scope', 'api', 'auth', 'user', function($scope, api, auth, user) {
     
     $scope.tests = [];
@@ -32,6 +60,8 @@ chat.controller('TestCtrl', ['$scope', 'api', 'auth', 'user', function($scope, a
     var login_test = test('login', 'pending');
     auth.login("emil", "bergie").then(function(sid) {
         update(login_test, "success " + sid);
+        
+        $scope.sid = sid;
         
         var user_test_sid = test('user-sid', 'pending');
         user(sid).then(function(res) {
@@ -67,6 +97,15 @@ chat.controller('TestCtrl', ['$scope', 'api', 'auth', 'user', function($scope, a
         user.getImg('emil').then(function(res) {
             $scope.imgSrc = res;
             update(img_test, true);
+        });
+    };
+    
+    $scope.logout = function() {
+        var logout_test = test('logout', 'pending');
+        auth.logout($scope.sid).then(function(res) {
+            update(logout_test, true);
+        }, function(res) {
+            update(logout_test, false);
         });
     };
     

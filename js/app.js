@@ -10,7 +10,7 @@
 
 var chat = angular.module('chat', ['ngRoute']);
 
-chat.config(['$routeProvider', function($routeProvider) {
+/*chat.config(['$routeProvider', function($routeProvider) {
 	$routeProvider
 	.when('/', {
 		templateUrl: 'html/splash.html'
@@ -39,5 +39,66 @@ chat.config(['$routeProvider', function($routeProvider) {
 	.when('/settings', {
 		templateUrl:'html/settings.html'
 	})
+	.otherwise({ redirectTo: '/'});
+}]);*/
+
+chat.config(['$routeProvider', function($routeProvider) {
+	$routeProvider
+	.when('/', {
+		templateUrl: 'html/splash.html',
+        controller: 'SplashCtrl'
+	})
+	.when('/login', {
+		templateUrl: 'html/login.html',
+        controller: 'LoginCtrl'
+	})
+	.when('/home', {
+		templateUrl: 'html/main.html',
+        controller: 'MainCtrl',
+        resolve: {
+            subview: function() { return 'chat.html'; }
+        }
+	})
+    
+	.when('/chat/:chatId', {
+		templateUrl: 'html/main.html',
+        controller: 'MainCtrl',
+        resolve: {
+            subview: function() { return 'chat.html'; }
+        }
+	})
+    .when('/addfriend', {
+		templateUrl: 'html/main.html',
+        controller: 'MainCtrl',
+        resolve: {
+            subview: function() { return 'addfriend.html'; }
+        }
+	})
+	.when('/group/:groupId', {
+		templateUrl: 'html/main.html',
+        controller: 'MainCtrl',
+        resolve: {
+            subview: function() { return 'group.html'; }
+        }
+	})
+	.when('/:userId/profile', {
+		templateUrl: 'html/main.html',
+        controller: 'MainCtrl',
+        resolve: {
+            subview: function() { return 'profile.html'; }
+        }
+	})
+	.when('/settings', {
+		templateUrl:'html/main.html',
+        controller: 'MainCtrl',
+        resolve: {
+            subview: function() { return 'settings.html'; }
+        }
+	})
+    
+	.when('/media/:mediaId', {
+		controller: 'MediaCtrl'
+	})
+    
 	.otherwise({ redirectTo: '/'});
 }]);
