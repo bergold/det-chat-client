@@ -9,7 +9,8 @@
 
 
 chat.controller('SplashCtrl', ['$scope', function($scope) {
-    
+    $scope.loading = true;
+    $scope.label = "Laden";
 }]);
 
 chat.controller('LoginCtrl', ['$scope', function($scope) {
@@ -18,10 +19,16 @@ chat.controller('LoginCtrl', ['$scope', function($scope) {
 
 chat.controller('MainCtrl', ['$scope', '$route', '$routeParams', '$location', function($scope, $route, $routeParams, $location) {
     
-    $scope.loc = $location;
+    $scope.loc = $location.path();
     $scope.route = $route;
     $scope.params = $routeParams;
-    $scope.subview = "html/partials/" + $route.current.locals.subview;
+    $scope.subview = "html/partials/" + $route.current.locals.subview[0];
+    
+    $scope.actionbar = {
+        back: $location.path() != "/home",
+        title: $route.current.locals.subview[1] ? $route.current.locals.subview[1] : 'Chats',
+        actions: []
+    };
     
 }]);
 
@@ -30,6 +37,10 @@ chat.controller('ChatsCtrl', ['$scope', function($scope) {
     
 }]);
 
+
+chat.controller('SettingsCtrl', ['$scope', function($scope) {
+    
+}]);
 
 chat.controller('MediaCtrl', ['$scope', function($scope) {
     
@@ -66,6 +77,8 @@ chat.controller('TestCtrl', ['$scope', 'api', 'auth', 'user', function($scope, a
         var user_test_sid = test('user-sid', 'pending');
         user(sid).then(function(res) {
             update(user_test_sid, res);
+        }, function(res) {
+            update(user_test_sid, false);
         });
         
         var user_test_ping = test('ping', 'pending');
@@ -83,12 +96,16 @@ chat.controller('TestCtrl', ['$scope', 'api', 'auth', 'user', function($scope, a
     var user_test = test('user', 'pending');
     user('emil').then(function(res) {
         update(user_test, res);
+    }, function(res) {
+        update(user_test, false);
     });
     
     $scope.testUser = function() {
         var user_test_2 = test('user', 'pending');
-        user('emil', true).then(function(res) {
+        user($scope.sid, true).then(function(res) {
             update(user_test_2, res);
+        }, function(res) {
+            update(user_test_2, false);
         });
     };
     
@@ -97,6 +114,8 @@ chat.controller('TestCtrl', ['$scope', 'api', 'auth', 'user', function($scope, a
         user.getImg('emil').then(function(res) {
             $scope.imgSrc = res;
             update(img_test, true);
+        }, function(res) {
+            update(img_test, false);
         });
     };
     

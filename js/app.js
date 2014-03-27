@@ -56,7 +56,7 @@ chat.config(['$routeProvider', function($routeProvider) {
 		templateUrl: 'html/main.html',
         controller: 'MainCtrl',
         resolve: {
-            subview: function() { return 'chat.html'; }
+            subview: function() { return ['chat.html']; }
         }
 	})
     
@@ -64,38 +64,35 @@ chat.config(['$routeProvider', function($routeProvider) {
 		templateUrl: 'html/main.html',
         controller: 'MainCtrl',
         resolve: {
-            subview: function() { return 'chat.html'; }
+            subview: function() { return ['chat.html']; }
         }
 	})
     .when('/addfriend', {
 		templateUrl: 'html/main.html',
         controller: 'MainCtrl',
         resolve: {
-            subview: function() { return 'addfriend.html'; }
+            subview: function() { return ['addfriend.html', 'Freund hinzuf\xfcgen']; }
         }
 	})
 	.when('/group/:groupId', {
 		templateUrl: 'html/main.html',
         controller: 'MainCtrl',
         resolve: {
-            subview: function() { return 'group.html'; }
+            subview: function() { return ['group.html']; }
         }
 	})
 	.when('/:userId/profile', {
 		templateUrl: 'html/main.html',
         controller: 'MainCtrl',
         resolve: {
-            subview: function() { return 'profile.html'; }
-        }
-	})
-	.when('/settings', {
-		templateUrl:'html/main.html',
-        controller: 'MainCtrl',
-        resolve: {
-            subview: function() { return 'settings.html'; }
+            subview: function() { return ['profile.html']; }
         }
 	})
     
+	.when('/settings', {
+		templateUrl:'html/settings.html',
+        controller: 'SettingsCtrl'
+	})
 	.when('/media/:mediaId', {
 		controller: 'MediaCtrl'
 	})

@@ -5,6 +5,7 @@
         
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
         
+        <link type="text/css" rel="stylesheet" href="css/icons.css" media="all" />
         <link type="text/css" rel="stylesheet" href="css/style.css" media="all" />
         
         <script type="text/javascript" src="js/moment.js"></script>
@@ -22,7 +23,7 @@
         <script type="text/javascript" src="js/app/controller.js"></script>
     </head>
     <body>
-        <style>
+        <!--<style>
             td {
                 background: #f4f4f4;
                 margin: 1px;
@@ -32,6 +33,7 @@
             }
         </style>
         <div ng-controller="TestCtrl">
+            SID: {{sid}}
             <table>
                 <tr ng-repeat="test in tests">
                     <td>{{test.name}}</td>
@@ -42,7 +44,7 @@
             <button ng-click="testImg()">Test Img!</button>
             <button ng-click="logout()">Logout!</button>
             <img ng-src="{{imgSrc}}" />
-        </div>
+        </div>-->
         
         
         <div ng-view>

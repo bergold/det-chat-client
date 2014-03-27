@@ -75,9 +75,16 @@ var api = (function () {
         req.upload.addEventListener("error", callback.bind(req, true), false);
         req.upload.addEventListener("abort", callback.bind(req, true), false);
         
-        req.open("post", path, true);
+        req.open("get", encodeURI(path), true);
         
-        req.send(data);
+        try {
+            req.send(data);
+        } catch (ex) {
+            callback(false, {
+                type: "error",
+                msg: ex
+            });
+        }
         
         return req;
         

@@ -1,22 +1,26 @@
 <header>
+    <a href="#/home">
+        <span class="icon icon-back" ng-show="{{actionbar.back}}"></span>
+        <span class="icon icon-det"></span>
+    </a>
+    <span class="text">{{actionbar.title}}</span>
+</header>
+
+<div class="sideview" ng-controller="ChatsCtrl">
     <a href="#/home">Home</a>
     <a href="#/chat/dennis">Chat (dennis)</a>
     <a href="#/addfriend">Add Friend</a>
     <a href="#/group/2">Group (2)</a>
     <a href="#/tim/profile">Profile (tim)</a>
     <a href="#/settings">Settings</a>
-</header>
-
-<aside ng-controller="ChatsCtrl">
-
-</aside>
+</div>
 
 <div class="mainview" ng-include="subview">
 </div>
 
 <footer>
     Subview: {{subview}}<br />
-    Location: {{loc.path()}}<br />
+    Location: {{loc}}<br />
     Route: {{route.current}}<br />
     Params: {{params}}
 </footer>

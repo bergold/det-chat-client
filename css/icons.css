@@ -1,0 +1,13 @@
+.icon {
+    display: inline-block;
+}
+
+.icon-det {
+    width: 48px;
+}
+.icon-loading {
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    background: #2980b9;
+}
