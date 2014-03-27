@@ -1,1 +1,17 @@
-Login
+<div class="center">
+    <div class="logo big"></div>
+    
+    <div ng-switch="state">
+        <div class="icon icon-loading pulsate" ng-switch-when="loading"></div>
+        <div ng-switch-default>
+            <form ng-submit="login(un, pw)">
+                <div ng-if="state=='error'">{{errMsg}}</div>
+                <span>Benutzername: {{un}}</span>
+                <input type="text" ng-model="un" />
+                <span>Passwort: {{pw}}</span>
+                <input type="password" ng-model="pw" />
+                <input type="submit" value="Anmelden" />
+            </form>
+        </div>
+    </div>
+</div>

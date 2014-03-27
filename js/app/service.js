@@ -34,6 +34,7 @@ chat.factory('auth', ['$q', 'api', function($q, api) {
         login: function(un, pw) {
             var defered = $q.defer();
             pw = _.sha256(pw);
+            console.log("login", un, pw);
             api().then(function(req) {
                 req({
                     error: function(res, xhr) {

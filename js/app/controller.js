@@ -8,20 +8,42 @@
  */
 
 
-chat.controller('SplashCtrl', ['$scope', function($scope) {
+chat.controller('SplashCtrl', ['$scope', '$rootScope', '$location', 'settings', function($scope, $rootScope, $location, settings) {
     $scope.loading = true;
     $scope.label = "Laden";
+    
+    settings.get("sid").then(function(res) {
+        if (res.sid) {
+            $rootScope.sid = res.sid;
+            $location.path("/home");
+        } else {
+            $location.path("/login");
+        }
+    });
 }]);
 
-chat.controller('LoginCtrl', ['$scope', function($scope) {
+chat.controller('LoginCtrl', ['$scope', '$rootScope', '$location', 'settings', 'auth', function($scope, $rootScope, $location, settings, auth) {
+    $scope.state = "pending";
+    $scope.un = '';
+    $scope.pw = '';
+    
+    $scope.login = function(un, pw) {
+        $scope.state = "loading";
+        auth.login(un, pw).then(function(sid) {
+            $rootScope.sid = sid;
+            settings.set({sid:sid});
+            $location.path("/home");
+        }, function(ex) {
+            $scope.un = '';
+            $scope.pw = '';
+            $scope.errMsg = "Anmeldung fehlgeschlagen!";
+            $scope.state = "error";
+        });
+    };
     
 }]);
 
 chat.controller('MainCtrl', ['$scope', '$route', '$routeParams', '$location', function($scope, $route, $routeParams, $location) {
-    
-    $scope.loc = $location.path();
-    $scope.route = $route;
-    $scope.params = $routeParams;
     $scope.subview = "html/partials/" + $route.current.locals.subview[0];
     
     $scope.actionbar = {
