@@ -69,3 +69,7 @@ header a .icon {
 header a .text {
     margin-right: 12px;
 }
+
+.sideview, .mainview {
+    margin-top: 48px;
+}

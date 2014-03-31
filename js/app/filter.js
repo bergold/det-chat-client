@@ -8,8 +8,11 @@
  */
 
 
-chat.filter('fromNow', function() {
-	return function(dateString) {
-		return moment(new Date(dateString)).fromNow();
+chat.filter('msgmd', ['$filter', function($filter) {
+	return function(raw) {
+        var parsed = raw;
+        parsed = parsed.replace(/\[file:(\d+)\]/g, "<file id=\"$1\" />");
+        parsed = $filter('linky')(raw, '_blank');
+		return parsed;
 	};
-});
+}]);

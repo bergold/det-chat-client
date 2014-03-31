@@ -8,13 +8,6 @@
  */
 
 
-// definitions
-chat.constant('online_tolerance', 10);
-chat.constant('default_settings', {
-    
-});
-
-
 // api-service
 chat.factory('api', ['$q' , function($q) {
     return function() {
