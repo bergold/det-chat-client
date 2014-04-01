@@ -28,7 +28,7 @@ chat.config(['$routeProvider', function($routeProvider) {
         }
 	})
     
-	.when('/chat/:chatId', {
+	.when('/chat/:chatId*', {
 		templateUrl: 'html/main.html',
         controller: 'MainCtrl',
         resolve: {
@@ -68,4 +68,10 @@ chat.config(['$routeProvider', function($routeProvider) {
 	.otherwise({ redirectTo: '/'});
     
     moment.lang("de");
+}]);
+
+chat.run(['$rootScope', '$location', function($rootScope, $location) {
+    $rootScope.goto = function(path) {
+        $location.path(path);
+    };
 }]);

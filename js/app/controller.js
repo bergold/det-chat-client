@@ -56,7 +56,11 @@ chat.controller('MainCtrl', ['$scope', '$route', '$routeParams', '$location', fu
 
 
 chat.controller('ChatsCtrl', ['$scope', function($scope) {
-    
+    $scope.groups = [{
+        name: 'test',
+        title: 'testg'
+    }];
+    $scope.friends = [];
 }]);
 
 
