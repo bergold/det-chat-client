@@ -27,8 +27,12 @@ chat.config(['$routeProvider', function($routeProvider) {
             subview: function() { return ['chat.html']; }
         }
 	})
+    .when('/home/:subpage*', {
+        templateUrl: 'html/main.html',
+        controller: 'MainCtrl'
+    })
     
-	.when('/chat/:chatId*', {
+	/*.when('/chat/:chatId*', {
 		templateUrl: 'html/main.html',
         controller: 'MainCtrl',
         resolve: {
@@ -40,6 +44,13 @@ chat.config(['$routeProvider', function($routeProvider) {
         controller: 'MainCtrl',
         resolve: {
             subview: function() { return ['addfriend.html', 'Freund hinzuf\xfcgen']; }
+        }
+	})
+    .when('/creategroup', {
+		templateUrl: 'html/main.html',
+        controller: 'MainCtrl',
+        resolve: {
+            subview: function() { return ['creategroup.html', 'Neue Gruppe']; }
         }
 	})
 	.when('/group/:groupId', {
@@ -55,7 +66,7 @@ chat.config(['$routeProvider', function($routeProvider) {
         resolve: {
             subview: function() { return ['profile.html']; }
         }
-	})
+	})*/
     
 	.when('/settings', {
 		templateUrl:'html/settings.html',

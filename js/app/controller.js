@@ -44,23 +44,26 @@ chat.controller('LoginCtrl', ['$scope', '$rootScope', '$location', 'settings', '
 }]);
 
 chat.controller('MainCtrl', ['$scope', '$route', '$routeParams', '$location', function($scope, $route, $routeParams, $location) {
-    $scope.subview = "html/partials/" + $route.current.locals.subview[0];
+    /*$scope.subview = "html/partials/" + $route.current.locals.subview[0];
+    $scope.mainview = $location.path() != "/home";
     
     $scope.actionbar = {
-        back: $location.path() != "/home",
+        back: $scope.mainview,
         title: $route.current.locals.subview[1] ? $route.current.locals.subview[1] : 'Chats',
         actions: []
-    };
+    };*/
+    console.log($location.path(), $route, $routeParams);
     
 }]);
 
 
-chat.controller('ChatsCtrl', ['$scope', function($scope) {
-    $scope.groups = [{
-        name: 'test',
-        title: 'testg'
-    }];
+chat.controller('ChatsCtrl', ['$scope', '$rootScope', 'user', function($scope, $rootScope, user) {
+    $scope.groups = [];
     $scope.friends = [];
+    user($rootScope.sid).then(function(res) {
+        $scope.friends = res.friends;
+        $scope.groups = res.groups;
+    });
 }]);
 
 

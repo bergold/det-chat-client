@@ -72,85 +72,79 @@ chat.factory('auth', ['$q', 'api', function($q, api) {
 
 
 // user-service
-chat.provider('user', function() {
-    
-    this.buffer_ = {};
-    this.imgbuffer_ = {};
-    
-    this.$get = ['$q', 'api', 'online_tolerance', function($q, api, online_tolerance) {
-        var self = this;
-        var coreuser_ = function(name, force) {
-            force = force || false;
-            var defered = $q.defer();
-            if (!force && self.buffer_[name])
-                defered.resolve(self.buffer_[name]);
-            else api().then(function(req) {
-                req({
-                    error: function(res, xhr) {
-                        defered.reject(xhr);
-                    }
-                }).cmd({
-                    cmd: 'getdata',
-                    id: name,
-                    getimage: false
-                }, function(res) {
-                    if (false===res)
-                        defered.reject(false);
-                    else {
-                        self.buffer_[name] = res;
-                        defered.resolve(res);
-                    }
-                }).send();
-            });
-            return defered.promise;
-        };
-        coreuser_.getImg = function(name) {
-            var defered = $q.defer();
-            if (self.imgbuffer_[name])
-                defered.resolve(self.imgbuffer_[name]);
-            else api().then(function(req) {
-                req({
-                    error: function(res, xhr) {
-                        defered.reject(xhr);
-                    }
-                }).cmd({
-                    cmd: 'getdata',
-                    id: name,
-                    getimage: true
-                }, function(res) {
-                    if (false===res)
-                        defered.reject(false);
-                    else {
-                        self.imgbuffer_[name] = res.image;
-                        defered.resolve(res.image);
-                    }
-                }).send();
-            });
-            return defered.promise;
-        };
-        coreuser_.ping = function(sid) {
-            var defered = $q.defer();
-            api().then(function(req) {
-                req({
-                    error: function(res, xhr) {
-                        defered.reject(xhr);
-                    }
-                }).cmd({
-                    cmd: 'ping',
-                    sid: sid,
-                    tolerance: online_tolerance
-                }, function(res) {
-                    defered.resolve(res[0]);
-                    if (false===res[1])
-                        defered.reject(false);
-                }).send();
-            });
-            return defered.promise;
-        };
-        return coreuser_;
-    }];
-    
-});
+chat.provider('user', ['$q', 'api', 'online_tolerance', function($q, api, online_tolerance) {
+    var buffer_ = {};
+    var imgbuffer_ = {};
+    var coreuser_ = function(name, force) {
+        force = force || false;
+        var defered = $q.defer();
+        if (!force && buffer_[name])
+            defered.resolve(buffer_[name]);
+        else api().then(function(req) {
+            req({
+                error: function(res, xhr) {
+                    defered.reject(xhr);
+                }
+            }).cmd({
+                cmd: 'getdata',
+                id: name,
+                getimage: false
+            }, function(res) {
+                if (false===res)
+                    defered.reject(false);
+                else {
+                    buffer_[name] = res;
+                    defered.resolve(res);
+                }
+            }).send();
+        });
+        return defered.promise;
+    };
+    coreuser_.getImg = function(name) {
+        var defered = $q.defer();
+        if (imgbuffer_[name])
+            defered.resolve(imgbuffer_[name]);
+        else api().then(function(req) {
+            req({
+                error: function(res, xhr) {
+                    defered.reject(xhr);
+                }
+            }).cmd({
+                cmd: 'getdata',
+                id: name,
+                getimage: true
+            }, function(res) {
+                if (false===res)
+                    defered.reject(false);
+                else {
+                    imgbuffer_[name] = res.image;
+                    defered.resolve(res.image);
+                }
+            }).send();
+        });
+        return defered.promise;
+    };
+    coreuser_.ping = function(sid) {
+        var defered = $q.defer();
+        api().then(function(req) {
+            req({
+                error: function(res, xhr) {
+                    defered.reject(xhr);
+                }
+            }).cmd({
+                cmd: 'ping',
+                sid: sid,
+                tolerance: online_tolerance
+            }, function(res) {
+                defered.resolve(res[0]);
+                if (false===res[1])
+                    defered.reject(false);
+            }).send();
+        });
+        return defered.promise;
+    };
+    return coreuser_;
+}]);
 
 
 // settings-service

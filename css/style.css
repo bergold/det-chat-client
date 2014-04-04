@@ -49,6 +49,7 @@ header {
     left: 0;
     width: 100%;
     height: 45px;
+    z-index: 100;
     
     color: #fff;
     background: #2980b9;
@@ -71,5 +72,24 @@ header a .text {
 }
 
 .sideview, .mainview {
-    margin-top: 48px;
+    position: absolute;
+    height: 100%;
+    box-sizing: border-box;
+    padding-top: 48px;
+}
+
+.sideview {
+    left: 0;
+    width: 90%;
+}
+
+.mainview {
+    left: 90%;
+    width: 100%;
+    background: #eee;
+    border-left: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.mainview.active {
+    left: 0;
 }
