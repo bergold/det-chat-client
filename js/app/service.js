@@ -72,7 +72,7 @@ chat.factory('auth', ['$q', 'api', function($q, api) {
 
 
 // user-service
-chat.provider('user', ['$q', 'api', 'online_tolerance', function($q, api, online_tolerance) {
+chat.factory('user', ['$q', 'api', 'online_tolerance', function($q, api, online_tolerance) {
     var buffer_ = {};
     var imgbuffer_ = {};
     var coreuser_ = function(name, force) {

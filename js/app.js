@@ -10,7 +10,7 @@
 
 var chat = angular.module('chat', ['ngRoute', 'ngSanitize', 'ngTouch', 'ngAnimate']);
 
-chat.config(['$routeProvider', function($routeProvider) {
+chat.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 	$routeProvider
 	.when('/', {
 		templateUrl: 'html/splash.html',
@@ -23,61 +23,69 @@ chat.config(['$routeProvider', function($routeProvider) {
 	.when('/home', {
 		templateUrl: 'html/main.html',
         controller: 'MainCtrl',
-        resolve: {
-            subview: function() { return ['chat.html']; }
+        args: {
+            title: 'Chats',
+            default: true
         }
 	})
-    .when('/home/:subpage*', {
-        templateUrl: 'html/main.html',
-        controller: 'MainCtrl'
-    })
     
-	/*.when('/chat/:chatId*', {
+	.when('/chat/:chatId*', {
 		templateUrl: 'html/main.html',
         controller: 'MainCtrl',
-        resolve: {
-            subview: function() { return ['chat.html']; }
+        args: {
+            subview: 'chat.html',
+            default: false
         }
 	})
     .when('/addfriend', {
 		templateUrl: 'html/main.html',
         controller: 'MainCtrl',
-        resolve: {
-            subview: function() { return ['addfriend.html', 'Freund hinzuf\xfcgen']; }
+        args: {
+            subview: 'addfriend.html', 
+            title: 'Freund hinzuf\xfcgen',
+            default: false
         }
 	})
     .when('/creategroup', {
 		templateUrl: 'html/main.html',
         controller: 'MainCtrl',
-        resolve: {
-            subview: function() { return ['creategroup.html', 'Neue Gruppe']; }
+        args: {
+            subview: 'creategroup.html', 
+            title: 'Neue Gruppe',
+            default: false
         }
 	})
 	.when('/group/:groupId', {
 		templateUrl: 'html/main.html',
         controller: 'MainCtrl',
-        resolve: {
-            subview: function() { return ['group.html']; }
+        args: {
+            subview: 'group.html',
+            default: false
         }
 	})
 	.when('/:userId/profile', {
 		templateUrl: 'html/main.html',
         controller: 'MainCtrl',
-        resolve: {
-            subview: function() { return ['profile.html']; }
+        args: {
+            subview: 'profile.html',
+            default: false
         }
-	})*/
+	})
     
 	.when('/settings', {
 		templateUrl:'html/settings.html',
         controller: 'SettingsCtrl'
 	})
 	.when('/media/:mediaId', {
-		controller: 'MediaCtrl'
+        template: null,
+		handler: ['$rootScope', function($rootScope) {
+            
+        }]
 	})
     
 	.otherwise({ redirectTo: '/'});
     
+    $locationProvider.hashPrefix('!');
     moment.lang("de");
 }]);
 

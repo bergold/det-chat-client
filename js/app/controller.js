@@ -43,16 +43,25 @@ chat.controller('LoginCtrl', ['$scope', '$rootScope', '$location', 'settings', '
     
 }]);
 
-chat.controller('MainCtrl', ['$scope', '$route', '$routeParams', '$location', function($scope, $route, $routeParams, $location) {
-    /*$scope.subview = "html/partials/" + $route.current.locals.subview[0];
-    $scope.mainview = $location.path() != "/home";
+chat.controller('MainCtrl', ['$scope', '$rootScope', '$route', '$routeParams', '$location', function($scope, $rootScope, $route, $routeParams, $location) {
+    $rootScope.$on('$routeChangeSuccess', function(evt) {
+        if (angular.isDefined($routeParams.subview)) {
+            $scope.subview = "html/partials/" + $routeParams.subview;
+        }
+        if (angular.isDefined($routeParams.default)) {
+            $scope.actionbar.back = $scope.mainview = !$routeParams.default;
+        }
+        if (angular.isDefined($routeParams.title)) {
+            $scope.actionbar.title = $routeParams.title;
+        }
+    });
     
+    $scope.subview = "html/partials/chat.html";
     $scope.actionbar = {
-        back: $scope.mainview,
-        title: $route.current.locals.subview[1] ? $route.current.locals.subview[1] : 'Chats',
+        back: false,
+        title: 'Chats',
         actions: []
-    };*/
-    console.log($location.path(), $route, $routeParams);
+    };
     
 }]);
 
