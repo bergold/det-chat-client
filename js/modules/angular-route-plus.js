@@ -510,7 +510,7 @@ function $RouteProvider(){
           then(function() {
             if (next) {
               var locals = angular.extend({}, next.resolve),
-                  template, templateUrl, lastTemplateUrl, handler;
+                  template, templateUrl, lastTemplateUrl;
                 
               angular.extend(next.params, next.args);
               lastTemplateUrl = last && last.loadedTemplateUrl || '';
@@ -541,9 +541,6 @@ function $RouteProvider(){
                 locals['$template'] = template;
               }
               
-              if (angular.isDefined(handler = next.handler)) {
-                  $injector.invoke(handler);
-              }
               return $q.all(locals);
             }
           }).
@@ -553,6 +550,9 @@ function $RouteProvider(){
               if (next) {
                 next.locals = locals;
                 angular.copy(next.params, $routeParams);
+                if (angular.isDefined(next.handler)) {
+                  $injector.invoke(next.handler);
+                }
               }
               $rootScope.$broadcast('$routeChangeSuccess', next, last);
             }

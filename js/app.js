@@ -78,8 +78,8 @@ chat.config(['$routeProvider', '$locationProvider', function($routeProvider, $lo
 	})
 	.when('/media/:mediaId', {
         template: null,
-		handler: ['$rootScope', function($rootScope) {
-            
+		handler: ['$rootScope', '$routeParams', function($rootScope, $routeParams) {
+            console.log($routeParams);
         }]
 	})
     
@@ -90,6 +90,9 @@ chat.config(['$routeProvider', '$locationProvider', function($routeProvider, $lo
 }]);
 
 chat.run(['$rootScope', '$location', function($rootScope, $location) {
+    $rootScope.$on('$locationChangeSuccess', function() {
+        console.log($location.path());
+    })
     $rootScope.goto = function(path) {
         $location.path(path);
     };
