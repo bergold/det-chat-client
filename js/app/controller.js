@@ -44,6 +44,7 @@ chat.controller('LoginCtrl', ['$scope', '$rootScope', '$location', 'settings', '
 }]);
 
 chat.controller('MainCtrl', ['$scope', '$rootScope', '$route', '$routeParams', '$location', function($scope, $rootScope, $route, $routeParams, $location) {
+    
     $rootScope.$on('$routeChangeSuccess', function(evt) {
         if (angular.isDefined($routeParams.subview)) {
             $scope.subview = "html/partials/" + $routeParams.subview;

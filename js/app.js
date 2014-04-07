@@ -76,12 +76,6 @@ chat.config(['$routeProvider', '$locationProvider', function($routeProvider, $lo
 		templateUrl:'html/settings.html',
         controller: 'SettingsCtrl'
 	})
-	.when('/media/:mediaId', {
-        template: null,
-		handler: ['$rootScope', '$routeParams', function($rootScope, $routeParams) {
-            console.log($routeParams);
-        }]
-	})
     
 	.otherwise({ redirectTo: '/'});
     
@@ -90,9 +84,9 @@ chat.config(['$routeProvider', '$locationProvider', function($routeProvider, $lo
 }]);
 
 chat.run(['$rootScope', '$location', function($rootScope, $location) {
-    $rootScope.$on('$locationChangeSuccess', function() {
-        console.log($location.path());
-    })
+    $rootScope.media = function(mediaId) {
+        
+    };
     $rootScope.goto = function(path) {
         $location.path(path);
     };
