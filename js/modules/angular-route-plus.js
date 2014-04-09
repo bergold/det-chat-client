@@ -550,9 +550,6 @@ function $RouteProvider(){
               if (next) {
                 next.locals = locals;
                 angular.copy(next.params, $routeParams);
-                if (angular.isDefined(next.handler)) {
-                  $injector.invoke(next.handler);
-                }
               }
               $rootScope.$broadcast('$routeChangeSuccess', next, last);
             }
