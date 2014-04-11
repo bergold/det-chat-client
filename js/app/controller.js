@@ -76,95 +76,15 @@ chat.controller('ChatsCtrl', ['$scope', '$rootScope', 'user', function($scope, $
     });
 }]);
 
+chat.controller('AddFriendCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
+    
+}]);
+
 
 chat.controller('SettingsCtrl', ['$scope', function($scope) {
     
 }]);
 
 chat.controller('MediaCtrl', ['$scope', function($scope) {
-    
-}]);
-
-
-chat.controller('TestCtrl', ['$scope', 'api', 'auth', 'user', function($scope, api, auth, user) {
-    
-    $scope.tests = [];
-    
-    var test = function(name, res) {
-        console.log("Test : ", name + "(" + $scope.tests.length + ")", res)
-        return $scope.tests.push({
-            name: name,
-            result: res
-        }) - 1;
-    };
-    var update = function(i, res) {
-        console.log("Test*: ", i, res);
-        if ($scope.tests[i]) $scope.tests[i].result = res;
-    }
-    
-    var api_test = test('api', 'false');
-    api().then(function(a) {
-        update(api_test, true);
-    });
-    
-    var login_test = test('login', 'pending');
-    auth.login("emil", "bergie").then(function(sid) {
-        update(login_test, "success " + sid);
-        
-        $scope.sid = sid;
-        
-        var user_test_sid = test('user-sid', 'pending');
-        user(sid).then(function(res) {
-            update(user_test_sid, res);
-        }, function(res) {
-            update(user_test_sid, false);
-        });
-        
-        var user_test_ping = test('ping', 'pending');
-        user.ping(sid).then(function(res) {
-            update(user_test_ping, res);
-        }, function(res) {
-            update(user_test_ping, "error: " + res);
-        });
-            
-    },
-    function(reson) {
-        update(login_test, "error " + reson);
-    });
-    
-    var user_test = test('user', 'pending');
-    user('emil').then(function(res) {
-        update(user_test, res);
-    }, function(res) {
-        update(user_test, false);
-    });
-    
-    $scope.testUser = function() {
-        var user_test_2 = test('user', 'pending');
-        user($scope.sid, true).then(function(res) {
-            update(user_test_2, res);
-        }, function(res) {
-            update(user_test_2, false);
-        });
-    };
-    
-    $scope.testImg = function() {
-        var img_test = test('img', 'pending');
-        user.getImg('emil').then(function(res) {
-            $scope.imgSrc = res;
-            update(img_test, true);
-        }, function(res) {
-            update(img_test, false);
-        });
-    };
-    
-    $scope.logout = function() {
-        var logout_test = test('logout', 'pending');
-        auth.logout($scope.sid).then(function(res) {
-            update(logout_test, true);
-        }, function(res) {
-            update(logout_test, false);
-        });
-    };
     
 }]);
