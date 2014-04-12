@@ -16,7 +16,7 @@ chat.config(['$routeProvider', '$locationProvider', function($routeProvider, $lo
 		templateUrl: 'html/splash.html',
         controller: 'SplashCtrl'
 	})
-	.when('/login', {
+	.when('/login/:err?', {
 		templateUrl: 'html/login.html',
         controller: 'LoginCtrl'
 	})

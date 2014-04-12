@@ -6,9 +6,9 @@
         <div ng-switch-default>
             <form ng-submit="login(un, pw)">
                 <div ng-if="state=='error'">{{errMsg}}</div>
-                <span>Benutzername: {{un}}</span>
+                <span>Benutzername:</span>
                 <input type="text" ng-model="un" />
-                <span>Passwort: {{pw}}</span>
+                <span>Passwort:</span>
                 <input type="password" ng-model="pw" />
                 <input type="submit" value="Anmelden" />
             </form>

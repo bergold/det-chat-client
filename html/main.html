@@ -15,7 +15,7 @@
         <div>
             <div ng-repeat="group in groups" ng-click="goto('/chat/g/' + group.name)">
                 <div class="title">{{group.title}}</div>
-                <div class="subtitle">{{group.lastmsg}}</div>
+                <div class="subtitle">{{group.name}}</div>
             </div>
         </div>
     </div>
@@ -26,8 +26,9 @@
         </div>
         <div>
             <div ng-repeat="friend in friends" ng-click="goto('/chat/' + friend.name)">
+                <img ng-src="{{friend.image}}" />
                 <div class="title">{{friend.nick}}</div>
-                <div class="subtitle">{{friend.lastmsg}}</div>
+                <div class="subtitle">{{friend.name}}</div>
             </div>
         </div>
     </div>

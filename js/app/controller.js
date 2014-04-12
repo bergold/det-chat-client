@@ -8,30 +8,39 @@
  */
 
 
-chat.controller('SplashCtrl', ['$scope', '$rootScope', '$location', 'settings', 'auth', function($scope, $rootScope, $location, settings, auth) {
+chat.controller('SplashCtrl', ['$scope', '$location', 'settings', 'auth', 'user', 
+                       function($scope,   $location,   settings,   auth,   user) {
     $scope.loading = true;
     $scope.label = "Laden";
     
     settings.get("sid").then(function(res) {
         if (res.sid) {
-            // $rootScope.sid = res.sid;
-            auth.sid = res.sid;
-            $location.path("/home");
+            user(res.sid).then(function() {
+                auth.sid = res.sid;
+                $location.path("/home");
+            }, function() {
+                $location.path("/login/fail");
+            });
         } else {
             $location.path("/login");
         }
     });
 }]);
 
-chat.controller('LoginCtrl', ['$scope', '$rootScope', '$location', 'settings', 'auth', function($scope, $rootScope, $location, settings, auth) {
+chat.controller('LoginCtrl', ['$scope', '$routeParams', '$location', 'settings', 'auth', 
+                      function($scope,   $routeParams,   $location,   settings,   auth) {
     $scope.state = "pending";
     $scope.un = '';
     $scope.pw = '';
     
+    if ($routeParams.err) {
+        $scope.errMsg = "Anmeldung fehlgeschlagen!";
+        $scope.state = "error";
+    }
+    
     $scope.login = function(un, pw) {
         $scope.state = "loading";
         auth.login(un, pw).then(function(sid) {
-            // $rootScope.sid = sid;
             auth.sid = sid;
             settings.set({sid:sid});
             $location.path("/home");
@@ -69,17 +78,33 @@ chat.controller('MainCtrl', ['$scope', '$rootScope', '$route', '$routeParams', '
 }]);
 
 
-chat.controller('ChatsCtrl', ['$scope', '$rootScope', 'user', 'auth', function($scope, $rootScope, user, auth) {
+chat.controller('ChatsCtrl', ['$scope', '$location', 'user', 'auth', function($scope, $location, user, auth) {
     $scope.groups = [];
     $scope.friends = [];
-    // user($rootScope.sid).then(function(res) {
     user(auth.sid).then(function(res) {
-        $scope.friends = res.friends;
-        $scope.groups = res.groups;
+        angular.forEach(res.friends, function(nick, name) {
+            var i = $scope.friends.push({
+                name: name, 
+                nick: nick
+            }) -1;
+            user.getImg(name).then(function(img) {
+                $scope.friends[i].image = img;
+            });
+        });
+        angular.forEach(res.groups, function(title, name) {
+            $scope.groups.push({
+                name: name, 
+                title: title
+            });
+        });
     });
 }]);
 
-chat.controller('AddFriendCtrl', ['$scope', 'user', function($scope, user) {
+chat.controller('ChatCtrl', ['$scope', function($scope) {
+    
+}]);
+
+chat.controller('AddFriendCtrl', ['$scope', 'user', 'friends', function($scope, user, friends) {
     $scope.user = null;
     $scope.search = function() {
         var id = $scope.uid;
@@ -95,7 +120,12 @@ chat.controller('AddFriendCtrl', ['$scope', 'user', function($scope, user) {
         });
     };
     $scope.add = function() {
-        
+        $scope.user.added = null;
+        friends.add($scope.user.name).then(function() {
+            $scope.user.added = true;
+        }, function() {
+            $scope.user.added = false;
+        });
     };
 }]);
 
