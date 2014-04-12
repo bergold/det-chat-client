@@ -129,6 +129,18 @@ chat.controller('AddFriendCtrl', ['$scope', 'user', 'friends', function($scope, 
     };
 }]);
 
+chat.controller('CreateGroupCtrl', ['$scope', function($scope) {
+    
+}]);
+
+chat.controller('ProfileCtrl', ['$scope', function($scope) {
+    
+}]);
+
+chat.controller('GroupCtrl', ['$scope', function($scope) {
+    
+}]);
+
 
 chat.controller('SettingsCtrl', ['$scope', function($scope) {
     
