@@ -24,6 +24,8 @@ chat.factory('api', ['$q' , function($q) {
 chat.factory('auth', ['$q', 'api', function($q, api) {
     return {
         
+        sid: null,
+        
         login: function(un, pw) {
             var defered = $q.defer();
             pw = _.sha256(pw);

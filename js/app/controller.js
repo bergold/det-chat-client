@@ -8,13 +8,14 @@
  */
 
 
-chat.controller('SplashCtrl', ['$scope', '$rootScope', '$location', 'settings', function($scope, $rootScope, $location, settings) {
+chat.controller('SplashCtrl', ['$scope', '$rootScope', '$location', 'settings', 'auth', function($scope, $rootScope, $location, settings, auth) {
     $scope.loading = true;
     $scope.label = "Laden";
     
     settings.get("sid").then(function(res) {
         if (res.sid) {
-            $rootScope.sid = res.sid;
+            // $rootScope.sid = res.sid;
+            auth.sid = res.sid;
             $location.path("/home");
         } else {
             $location.path("/login");
@@ -30,7 +31,8 @@ chat.controller('LoginCtrl', ['$scope', '$rootScope', '$location', 'settings', '
     $scope.login = function(un, pw) {
         $scope.state = "loading";
         auth.login(un, pw).then(function(sid) {
-            $rootScope.sid = sid;
+            // $rootScope.sid = sid;
+            auth.sid = sid;
             settings.set({sid:sid});
             $location.path("/home");
         }, function(ex) {
@@ -67,17 +69,30 @@ chat.controller('MainCtrl', ['$scope', '$rootScope', '$route', '$routeParams', '
 }]);
 
 
-chat.controller('ChatsCtrl', ['$scope', '$rootScope', 'user', function($scope, $rootScope, user) {
+chat.controller('ChatsCtrl', ['$scope', '$rootScope', 'user', 'auth', function($scope, $rootScope, user, auth) {
     $scope.groups = [];
     $scope.friends = [];
-    user($rootScope.sid).then(function(res) {
+    // user($rootScope.sid).then(function(res) {
+    user(auth.sid).then(function(res) {
         $scope.friends = res.friends;
         $scope.groups = res.groups;
     });
 }]);
 
-chat.controller('AddFriendCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
-    
+chat.controller('AddFriendCtrl', ['$scope', 'user', function($scope, user) {
+    $scope.user = null;
+    $scope.addfriend = function() {
+        var id = $scope.uid;
+        user(id).then(function(u) {
+            u.image = "";
+            $scope.user = u;
+            user.getImg(id).then(function(img) {
+                $scope.user.image = img;
+            });
+        }, function(ex) {
+            $scope.user = false;
+        });
+    };
 }]);
 
 

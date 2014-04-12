@@ -1,5 +1,20 @@
-<h2>Add Friend</h2>
-<form ng-submit="void()">
-    <input type="text" ng-model="name" placeholder="Benutzername" />
-    <input type="submit" value="+" />
-</form>
+<div ng-controller="AddFriendCtrl">
+    <form ng-submit="addfriend()">
+        <input type="text" ng-model="uid" placeholder="Benutzername" />
+        <input type="submit" value="+" />
+    </form>
+    <div class="card big-card user" ng-show="user">
+        <div class="user-img">
+            <img ng-src="{{user.image}}" />
+        </div>
+        <div class="user-name">
+            <span ng-bind="user.nick"></span>
+        </div>
+        <div>
+            <span class="button">Hinzuf&uuml;gen</span>
+        </div>
+    </div>
+    <div ng-show="user===false">
+        Nicht gefunden :(
+    </div>
+</div>
