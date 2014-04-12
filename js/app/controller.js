@@ -81,10 +81,11 @@ chat.controller('ChatsCtrl', ['$scope', '$rootScope', 'user', 'auth', function($
 
 chat.controller('AddFriendCtrl', ['$scope', 'user', function($scope, user) {
     $scope.user = null;
-    $scope.addfriend = function() {
+    $scope.search = function() {
         var id = $scope.uid;
         user(id).then(function(u) {
             u.image = "";
+            u.name = id;
             $scope.user = u;
             user.getImg(id).then(function(img) {
                 $scope.user.image = img;
@@ -92,6 +93,9 @@ chat.controller('AddFriendCtrl', ['$scope', 'user', function($scope, user) {
         }, function(ex) {
             $scope.user = false;
         });
+    };
+    $scope.add = function() {
+        
     };
 }]);
 

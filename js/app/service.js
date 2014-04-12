@@ -149,6 +149,92 @@ chat.factory('user', ['$q', 'api', 'online_tolerance', function($q, api, online_
 }]);
 
 
+// friends-service
+chat.factory('friends', ['$q', 'auth', 'api', function($q, auth, api) {
+    return {
+        add: function(friend) {
+            var defered = $q.defer();
+            api().then(function(req) {
+                req({
+                    error: function(res, xhr) {
+                        defered.reject(xhr);
+                    }
+                }).cmd({
+                    cmd: 'addfriend',
+                    sid: auth.sid,
+                    friend: friend
+                }, function(res) {
+                    if (false===res)
+                        defered.reject(false);
+                    else
+                        defered.resolve(res);
+                }).send();
+            });
+            return defered.promise;
+        },
+        
+        remove: function(friend) {
+            var defered = $q.defer();
+            api().then(function(req) {
+                req({
+                    error: function(res, xhr) {
+                        defered.reject(xhr);
+                    }
+                }).cmd({
+                    cmd: 'removefriend',
+                    sid: auth.sid,
+                    friend: friend
+                }, function(res) {
+                    if (false===res)
+                        defered.reject(false);
+                    else
+                        defered.resolve(res);
+                }).send();
+            });
+            return defered.promise;
+        },
+        
+        list: function() {
+            var defered = $q.defer();
+            api().then(function(req) {
+                req({
+                    error: function(res, xhr) {
+                        defered.reject(xhr);
+                    }
+                }).cmd({
+                    cmd: 'getfriends',
+                    sid: auth.sid
+                }, function(res) {
+                    if (false===res)
+                        defered.reject(false);
+                    else
+                        defered.resolve(res);
+                }).send();
+            });
+            return defered.promise;
+        },
+        
+        isFriend: function(friend) {
+            var defered = $q.defer();
+            api().then(function(req) {
+                req({
+                    error: function(res, xhr) {
+                        defered.reject(xhr);
+                    }
+                }).cmd({
+                    cmd: 'isfriend',
+                    sid: auth.sid,
+                    friend: friend
+                }, function(res) {
+                    defered.resolve(res);
+                }).send();
+            });
+            return defered.promise;
+        }
+    }
+}]);
+
+
 // settings-service
 chat.factory('settings', ['$q', 'default_settings', function($q, default_settings) {
     return {
