@@ -1,0 +1,28 @@
+<header class="green">
+    <a class="button icon icon-arrow-left" href="#!/home">
+    </a>
+    <span class="text">Freund hinzuf&uuml;gen</span>
+</header>
+
+<section>
+    <form ng-submit="search()">
+        <input class="input-text input-text-invert" type="text" ng-model="uid" placeholder="Benutzername" />
+    </form>
+    <div class="user-card alert alert-success alert-invert" ng-show="user">
+        <div class="user-img">
+            <img ng-src="{{user.image}}" />
+        </div>
+        <div class="user-name">
+            <span ng-bind="user.nick"></span>
+        </div>
+        <div>
+            <span class="button" ng-click="add()" ng-show="user.added===undefined">Hinzuf&uuml;gen</span>
+            <span ng-show="user.added===null">...</span>
+            <span ng-show="user.added===true">Hinzugef&uuml;gt!</span>
+            <span ng-show="user.added===false">Fehler</span>
+        </div>
+    </div>
+    <div class="alert alert-error alert-invert" ng-show="user===false">
+        Nicht gefunden :(
+    </div>
+</section>

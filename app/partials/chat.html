@@ -1,0 +1,27 @@
+<header class="red">
+    <a class="button icon icon-arrow-left" href="#!/home">
+    </a>
+    <span class="text">{{chatUser.nick || chatId}}</span>
+</header>
+
+<section class="scroll-container">
+    <div class="message" ng-class="{'message-right':isMe(msg),'message-left':!isMe(msg)}" ng-repeat="msg in msgs" scroll-down>
+        <img class="message-img" ng-src="{{isMe(msg) ? meUser.image : chatUser.image}}" />
+        <div class="message-inner">
+            <span class="message-header">
+                {{msg.sender}}
+            </span>
+            <div class="message-body" ng-bind-html="msg.msg | msgmd">
+            </div>
+            <div class="message-footer">
+                <span from-now="msg.edited"></span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <form class="input-group" ng-submit="send()">
+        <textarea class="group-input" ng-model="newmsg" enter="send()" placeholder="Neue Nachricht"></textarea>
+    </form>
+</footer>
