@@ -2,4 +2,8 @@ det-chat-client
 ===============
 
 A private chat.
-This repo containes the code for a chrome app
+
+Directory        | Description 
+===================================================
+src/             | contains the source code
+build_chromeapp/ | contains the releases for chrome
