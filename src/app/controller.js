@@ -98,7 +98,7 @@ det.controller('ChatCtrl', ['$scope', '$routeParams', 'chatAuth', 'chatUser', 'c
     $scope.meUser = {};
     
     chatUser($scope.chatId).then(function(u) {
-        $scope.chatUser = u;
+        $scope.chatUser = angular.extend($scope.chatUser, u);
     });
     chatUser.img($scope.chatId).then(function(img) {
         $scope.chatUser.image = img;
@@ -114,7 +114,7 @@ det.controller('ChatCtrl', ['$scope', '$routeParams', 'chatAuth', 'chatUser', 'c
     
     $scope.msgs = con.msgs;
     notifier.on('newmsg', function() {
-        
+        // $scope.msgs = con.msgs;
     });
     
     $scope.isMe = function(msg) {

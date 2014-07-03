@@ -77,7 +77,7 @@ det.run(['$location', 'notifier', 'chatBgWorker', function($location, notifier, 
     });
     
     notifier.on('newmsg', function(con, msg) {
-        console.log(con, msg);
+        // [todo] notify user
     });
     
     window.bgworker = chatBgWorker;

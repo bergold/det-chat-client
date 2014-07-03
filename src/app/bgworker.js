@@ -193,7 +193,7 @@ var Alarm = function() {};
                         }
                     };
                     lastMsg = newlastmsg;
-                    storage.set("lastMsg", newlastmsg);
+                    storage.set({lastMsg: newlastmsg});
                     return res;
                 }).send();
             }

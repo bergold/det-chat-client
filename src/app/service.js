@@ -312,8 +312,16 @@ chat.factory('chatConversations', ['$q', 'chatAuth', 'chatAPI', 'storage', 'noti
             return promise;
         };
         this.receive = function(msg) {
+            if (this.findMsg(msg.uid)) return;
             this.msgs.push(msg);
             notifier.trigger('newmsg', this, msg);
+        };
+        this.findMsg = function(msgid) {
+            var match = false;
+            angular.forEach(this.msgs, function(msg) {
+                if (msg.uid == msgid) match = true;
+            });
+            return match;
         };
         this.load = function() {
             var name = this.target
@@ -370,7 +378,7 @@ chat.factory('chatConversations', ['$q', 'chatAuth', 'chatAPI', 'storage', 'noti
                 angular.forEach(res, function(msg) {
                     if (msg.edited >= thiz.lastMsg && msg.sender != chatAuth.username) {
                         newlastmsg = Math.max(thiz.lastMsg, msg.edited);
-                        convs.get(msg.type == 'user' ? msg.sender : msg.target, msg.type == 'group').receive(msg);
+                        convs.get(msg.type == 'group' ? msg.target : msg.sender, msg.type == 'group').receive(msg);
                     }
                 });
                 thiz.lastMsg = newlastmsg;
