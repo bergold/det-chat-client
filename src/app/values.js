@@ -7,6 +7,9 @@
  *
  */
 
+// possible values: 'CHROMEAPP', 'WEB', 
+det.constant('PLATFORM', 'CHROMEAPP');
+
 det.value('APP_VERSION', chrome.runtime.getManifest().version);
 
 det.constant('SETTINGS_DEFAULT', {

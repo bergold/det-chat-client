@@ -16,7 +16,7 @@ Build Det-Chat for Web and Chromeapp
     9. change link in `www/index.php`
 
 4. deploy for chrome
-    1. copy all files from `src` to `build_chromeapp/v<version>/`
+    1. copy all files from `src/` to `build_chromeapp/v<version>/`
     2. optional: remove code where `platform!=CHROMEAPP`
     3. optional: delete unnecessary files (`lib/less-<less.min.js`, `chat.appcache`, `manifest.mobile.json`, `css/style.css.less`)
     4. remove `script<less.js>` from `app.html`

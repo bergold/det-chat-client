@@ -25,8 +25,6 @@
     "offline_enabled": true,
     
     "permissions": [
-        "clipboardRead",
-        "clipboardWrite",
         "alwaysOnTopWindows",
         "alarms",
         "notifications",
