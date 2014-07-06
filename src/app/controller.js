@@ -1,4 +1,4 @@
-/*
+/**
  * File: controller.js
  * Controller
  *
@@ -168,10 +168,13 @@ det.controller('GroupCtrl', ['$scope', function($scope) {
 }]);
 
 
-det.controller('SettingsCtrl', ['$scope', 'settings', 'chatAPI', 'APP_VERSION', function($scope, settings, chatAPI, APP_VERSION) {
+det.controller('SettingsCtrl', ['$scope', 'settings', 'storage', 'platform', 'chatAPI', 'APP_VERSION',
+                        function($scope,   settings,   storage,   platform,   chatAPI,   APP_VERSION) {
+    $scope.platform = platform;
+    
     $scope.settings = settings;
     $scope.appVersion = APP_VERSION;
-    $scope.apiVersion = '2.0';
+    $scope.apiVersion = '...';
     
     chatAPI.add({
         cmd: "version",
@@ -181,7 +184,9 @@ det.controller('SettingsCtrl', ['$scope', 'settings', 'chatAPI', 'APP_VERSION', 
     chatAPI.flush();
     
     $scope.resetApp = function() {
-        
+        storage.clear();
+        if (platform.isWeb()) location.reload();
+        if (platform.isChromeapp()) chrome.runtime.reload();
     };
     
 }]);

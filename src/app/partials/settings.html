@@ -12,11 +12,11 @@
         </div>
         <div class="box-segment box-segment-toggle">
             <span class="box-segment-label">Automatische Anmeldung</span>
-            <span class="box-segment-value">{{version}}</span>
+            <span class="box-segment-value icon icon-checkmark" ng-class="{'active':settings('autoLogin')}" ng-click="settings('autoLogin', !settings('autoLogin'))"></span>
         </div>
-        <div class="box-segment box-segment-toggle">
+        <div class="box-segment box-segment-toggle" ng-if="platform.isChromeapp()">
             <span class="box-segment-label">Immer im Vordergrund</span>
-            <span class="box-segment-value">{{version}}</span>
+            <span class="box-segment-value icon icon-checkmark" ng-class="{'active':settings('alwaysOnTop')}" ng-click="settings('alwaysOnTop', !settings('alwaysOnTop'))"></span>
         </div>
     </div>
     

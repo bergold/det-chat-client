@@ -1,7 +1,7 @@
 Build Det-Chat for Web and Chromeapp
 ====================================
 
-1. update version in `chat.appcache` and `manifest.json`
+1. update version in `app/values.js`, `chat.appcache` and `manifest.json`
 2. compile all `.css.less` files to `.css`
 
 3. deploy for web:

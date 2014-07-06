@@ -8,9 +8,24 @@
  */
 
 // possible values: 'CHROMEAPP', 'WEB', 
-det.constant('PLATFORM', 'CHROMEAPP');
+det.constant('ACTIVE_PLATFORM', 'CHROMEAPP');
 
-det.value('APP_VERSION', chrome.runtime.getManifest().version);
+det.factory('platform', ['ACTIVE_PLATFORM', function(pltfrm) {
+    return {
+        isWeb: function () {
+            return pltfrm === 'WEB';
+        },
+        isChromeapp: function () {
+            return pltfrm === 'CHROMEAPP';
+        }
+    };
+}]);
+
+
+det.factory('APP_VERSION', ['platform', function(platform) {
+    if (platform.isChromeapp()) return chrome.runtime.getManifest().version;
+    else return '2.0.3';
+}]);
 
 det.constant('SETTINGS_DEFAULT', {
     autoLogin: true,
