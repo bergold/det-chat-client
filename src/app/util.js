@@ -11,6 +11,19 @@
 var _ = {};
 
 
+_.platform = {
+    active_platform = 'CHROMEAPP',
+    
+    isWeb: function () {
+        return this.active_platform === 'WEB';
+    },
+    
+    isChromeapp: function () {
+        return this.active_platform === 'CHROMEAPP';
+    }
+};
+
+
 /*
  * @param {string} val The string
  * @param {bool} dir The direction (false/undefined: encode, true: decode)

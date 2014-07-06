@@ -7,21 +7,6 @@
  *
  */
 
-// possible values: 'CHROMEAPP', 'WEB', 
-det.constant('ACTIVE_PLATFORM', 'CHROMEAPP');
-
-det.factory('platform', ['ACTIVE_PLATFORM', function(pltfrm) {
-    return {
-        isWeb: function () {
-            return pltfrm === 'WEB';
-        },
-        isChromeapp: function () {
-            return pltfrm === 'CHROMEAPP';
-        }
-    };
-}]);
-
-
 det.value('APP_VERSION', '2.0.4');
 
 det.constant('SETTINGS_DEFAULT', {

@@ -504,11 +504,11 @@ chat.factory('settings', ['storage', 'SETTINGS_DEFAULT', function(storage, SETTI
 
 
 // storage-factory
-chat.factory('storage', ['$q', 'platform', function($q, platform) {
+chat.factory('storage', ['$q', function($q) {
 
     return {
         get: function(keys) {
-            if (platform.isWeb()) {
+            if (_.platform.isWeb()) {
                 var ret = {};
                 if (angular.isString(keys)) keys = [keys];
                 var isArr = angular.isArray(keys);
@@ -518,7 +518,7 @@ chat.factory('storage', ['$q', 'platform', function($q, platform) {
                 });
                 return $q.when(ret);
             }
-            if (platform.isChromeapp()) {
+            if (_.platform.isChromeapp()) {
                 var defered = $q.defer();
                 chrome.storage.local.get(keys, function(val) {
                     defered.resolve(val);
@@ -528,7 +528,7 @@ chat.factory('storage', ['$q', 'platform', function($q, platform) {
         },
         
         set: function(keys, vals) {
-            if (platform.isWeb()) {
+            if (_.platform.isWeb()) {
                 var obj = {};
                 if (angular.isDefined(vals) && angular.isString(keys)) {
                     obj[keys] = vals;
@@ -540,7 +540,7 @@ chat.factory('storage', ['$q', 'platform', function($q, platform) {
                 });
                 return $q.when(true);
             }
-            if (platform.isChromeapp()) {
+            if (_.platform.isChromeapp()) {
                 var obj = {};
                 if (angular.isDefined(vals) && angular.isString(keys)) {
                     obj[keys] = vals;
@@ -556,7 +556,7 @@ chat.factory('storage', ['$q', 'platform', function($q, platform) {
         },
         
         remove: function(keys) {
-            if (platform.isWeb()) {
+            if (_.platform.isWeb()) {
                 if (angular.isString(keys)) keys = [keys];
                 var isArr = angular.isArray(keys);
                 angular.forEach(keys, function(v, k) {
@@ -565,7 +565,7 @@ chat.factory('storage', ['$q', 'platform', function($q, platform) {
                 });
                 return $q.when(true);
             }
-            if (platform.isChromeapp()) {
+            if (_.platform.isChromeapp()) {
                 var deferred = $q.defer();
                 chrome.storage.local.remove(keys, function() {
                     deferred.resolve(true);
@@ -575,8 +575,8 @@ chat.factory('storage', ['$q', 'platform', function($q, platform) {
         },
         
         clear: function() {
-            if (platform.isWeb()) localStorage.clear();
-            if (platform.isChromeapp()) chrome.storage.local.clear();
+            if (_.platform.isWeb()) localStorage.clear();
+            if (_.platform.isChromeapp()) chrome.storage.local.clear();
         }
     };
 }]);

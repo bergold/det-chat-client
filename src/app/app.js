@@ -62,7 +62,7 @@ det.config(['$routeProvider', '$locationProvider', '$httpProvider', '$compilePro
     
     $httpProvider.defaults.headers.post = {};
     
-    $compileProvider.aHrefSanitizationWhitelist(/^\s*(chrome-extension):/);
+    if (_.platform.isChromeapp()) $compileProvider.aHrefSanitizationWhitelist(/^\s*(chrome-extension):/);
 }]);
 
 det.run(['$location', 'notifier', 'chatBgWorker', function($location, notifier, chatBgWorker) {

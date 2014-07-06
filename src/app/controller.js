@@ -168,9 +168,9 @@ det.controller('GroupCtrl', ['$scope', function($scope) {
 }]);
 
 
-det.controller('SettingsCtrl', ['$scope', 'settings', 'storage', 'platform', 'chatAPI', 'APP_VERSION',
-                        function($scope,   settings,   storage,   platform,   chatAPI,   APP_VERSION) {
-    $scope.platform = platform;
+det.controller('SettingsCtrl', ['$scope', 'settings', 'storage', 'chatAPI', 'APP_VERSION',
+                        function($scope,   settings,   storage,   chatAPI,   APP_VERSION) {
+    $scope.platform = _.platform;
     
     $scope.settings = settings;
     $scope.appVersion = APP_VERSION;
@@ -185,8 +185,8 @@ det.controller('SettingsCtrl', ['$scope', 'settings', 'storage', 'platform', 'ch
     
     $scope.resetApp = function() {
         storage.clear();
-        if (platform.isWeb()) location.reload();
-        if (platform.isChromeapp()) chrome.runtime.reload();
+        if (_.platform.isWeb()) location.reload();
+        if (_.platform.isChromeapp()) chrome.runtime.reload();
     };
     
 }]);
