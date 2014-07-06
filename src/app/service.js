@@ -14,6 +14,7 @@
  * chatConversations 100%
  * chatBgWorker      100%
  * notifier          100%
+ * settings          100%
  * storage           100%
  *
  */
@@ -485,14 +486,15 @@ chat.factory('settings', ['storage', 'SETTINGS_DEFAULT', function(storage, SETTI
     var core = function(key, val) {
         if (angular.isDefined(val)) {
             settings[key] = val;
-            storage.set("settings", settings);
+            // storage.set("settings", settings); // [if:platform==CHROMEAPP]
+            storage.set("settings", angular.toJson(settings));
         } else {
             return settings[key];
         }
     }
     core.load = function() {
         return storage.get("settings").then(function(result) {
-        	return settings = angular.extend(SETTINGS_DEFAULT, result.settings);
+        	return settings = angular.extend(SETTINGS_DEFAULT, angular.fromJson(result.settings));
         });
     };
     
@@ -502,40 +504,79 @@ chat.factory('settings', ['storage', 'SETTINGS_DEFAULT', function(storage, SETTI
 
 
 // storage-factory
-chat.factory('storage', ['$q', function($q) {
+chat.factory('storage', ['$q', 'platform', function($q, platform) {
+
     return {
         get: function(keys) {
-            var defered = $q.defer();
-            chrome.storage.local.get(keys, function(val) {
-                defered.resolve(val);
-            });
-            return defered.promise;
+            if (platform.isWeb()) {
+                var ret = {};
+                if (angular.isString(keys)) keys = [keys];
+                var isArr = angular.isArray(keys);
+                angular.forEach(keys, function(v, k) {
+                    var key = isArr ? v : k;
+                    ret[key] = localStorage.getItem(key);
+                });
+                return $q.when(ret);
+            }
+            if (platform.isChromeapp()) {
+                var defered = $q.defer();
+                chrome.storage.local.get(keys, function(val) {
+                    defered.resolve(val);
+                });
+                return defered.promise;
+            }
         },
         
         set: function(keys, vals) {
-            var obj = {};
-            if (angular.isDefined(vals) && angular.isString(keys)) {
-                obj[keys] = vals;
-            } else if (angular.isObject(keys)) {
-				obj = keys;
-            } else throw "Invalid arguments";
-            var defered = $q.defer();
-            chrome.storage.local.set(obj, function() {
-                defered.resolve(true);
-            });
-            return defered.promise;
+            if (platform.isWeb()) {
+                var obj = {};
+                if (angular.isDefined(vals) && angular.isString(keys)) {
+                    obj[keys] = vals;
+                } else if (angular.isObject(keys)) {
+                    obj = keys;
+                } else throw "Invalid arguments";
+                angular.forEach(obj, function(v, k) {
+                    localStorage.setItem(k, v);
+                });
+                return $q.when(true);
+            }
+            if (platform.isChromeapp()) {
+                var obj = {};
+                if (angular.isDefined(vals) && angular.isString(keys)) {
+                    obj[keys] = vals;
+                } else if (angular.isObject(keys)) {
+                    obj = keys;
+                } else throw "Invalid arguments";
+                var defered = $q.defer();
+                chrome.storage.local.set(obj, function() {
+                    defered.resolve(true);
+                });
+                return defered.promise;
+            }
         },
         
         remove: function(keys) {
-            var deferred = $q.defer();
-            chrome.storage.local.remove(keys, function() {
-                deferred.resolve(true);
-            });
-            return deferred.promise;
+            if (platform.isWeb()) {
+                if (angular.isString(keys)) keys = [keys];
+                var isArr = angular.isArray(keys);
+                angular.forEach(keys, function(v, k) {
+                    var key = isArr ? v : k;
+                    localStorage.removeItem(key);
+                });
+                return $q.when(true);
+            }
+            if (platform.isChromeapp()) {
+                var deferred = $q.defer();
+                chrome.storage.local.remove(keys, function() {
+                    deferred.resolve(true);
+                });
+                return deferred.promise;
+            }
         },
         
         clear: function() {
-            chrome.storage.local.clear();
+            if (platform.isWeb()) localStorage.clear();
+            if (platform.isChromeapp()) chrome.storage.local.clear();
         }
     };
 }]);
