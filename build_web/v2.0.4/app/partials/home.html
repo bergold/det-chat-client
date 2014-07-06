@@ -1,0 +1,41 @@
+<header class="red">
+    <a class="button icon icon-det" href="#!/home">
+    </a>
+    <span class="text">Chats</span>
+    
+    <div class="dropdown" dropdown="dropdown">
+        <img class="dropdown-trigger" ng-src="{{userimage}}" />
+        <div class="dropdown-menu">
+            <a href="#!/home" class="menuitem">Profil</a>
+            <a href="#!/settings" class="menuitem">Einstellungen</a>
+            <a ng-click="logout()" class="menuitem">Abmelden</a>
+        </div>
+    </div>
+</header>
+
+<section>
+    <!-- Milestone v2.1 <div class="groupbox">
+        <div class="header">Gruppen</div>
+        <a class="box" href="#!/creategroup">
+            <div class="title">Neue Gruppe</div>
+        </a>
+        <a>
+            <div class="box" ng-href="#!/chat/g/{group.name}" ng-repeat="group in groups">
+                <div class="title">{{group.title}}</div>
+                <div class="subtitle">{{group.name}}</div>
+            </div>
+        </a>
+    </div>-->
+    <div class="list">
+        <div class="list-header">
+            Freunde
+            <a class="list-header-action icon icon-user-add" href="#!/addfriend">
+            </a>
+        </div>
+        <a class="list-item" ng-href="#!/chat/{{friend.name}}" ng-repeat="friend in friends">
+            <img class="list-item-img" ng-src="{{friend.image}}" />
+            <div class="list-item-title">{{friend.nick}}</div>
+            <div class="list-item-subtitle">{{friend.name}}</div>
+        </a>
+    </div>
+</section>

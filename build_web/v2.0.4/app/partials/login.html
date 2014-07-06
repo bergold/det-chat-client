@@ -1,0 +1,18 @@
+<div class="view-themed view-themed-blue">
+    <div class="icon icon-det"></div>
+    
+    <div class="loading pulsate" ng-show="state=='loading'"></div>
+    
+    <div class="alert alert-error" ng-show="state=='error'">
+        <b>Error</b>
+        Anmeldung fehlgeschlagen!
+    </div>
+    
+    <form ng-submit="login(un, pw)" ng-show="state!='loading'">
+        <span class="label">Benutzername:</span>
+        <input class="input-text" type="text" ng-model="un" />
+        <span class="label">Passwort:</span>
+        <input class="input-text" type="password" ng-model="pw" />
+        <input class="button" type="submit" value="Anmelden" />
+    </form>
+</div>

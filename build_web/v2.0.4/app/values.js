@@ -8,7 +8,7 @@
  */
 
 // possible values: 'CHROMEAPP', 'WEB', 
-det.constant('ACTIVE_PLATFORM', 'CHROMEAPP');
+det.constant('ACTIVE_PLATFORM', 'WEB');
 
 det.factory('platform', ['ACTIVE_PLATFORM', function(pltfrm) {
     return {

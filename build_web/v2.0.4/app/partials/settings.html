@@ -1,0 +1,63 @@
+<header class="blue">
+    <a class="button icon icon-arrow-left" href="#!/home">
+    </a>
+    <span class="text">Einstellungen</span>
+</header>
+
+<section>
+    
+    <div class="box">
+        <div class="box-title">
+            Allgemein
+        </div>
+        <div class="box-segment box-segment-toggle">
+            <span class="box-segment-label">Automatische Anmeldung</span>
+            <span class="box-segment-value icon icon-checkmark" ng-class="{'active':settings('autoLogin')}" ng-click="settings('autoLogin', !settings('autoLogin'))"></span>
+        </div>
+        <div class="box-segment box-segment-toggle" ng-if="platform.isChromeapp()">
+            <span class="box-segment-label">Immer im Vordergrund</span>
+            <span class="box-segment-value icon icon-checkmark" ng-class="{'active':settings('alwaysOnTop')}" ng-click="settings('alwaysOnTop', !settings('alwaysOnTop'))"></span>
+        </div>
+    </div>
+    
+    <div class="box">
+        <div class="box-title">
+            Erweitert
+        </div>
+        <div class="box-segment box-segment-range">
+            <span class="box-segment-label">Vordergrund-Intervall</span>
+            <span class="box-segment-value">{{settings('recieve_delay')}} sec</span>
+            <div class="box-segment-description">Intervall zum Abfragen neuer Nachrichten, wenn die App aktiv ist</div>
+        </div>
+        <div class="box-segment box-segment-range">
+            <span class="box-segment-label">Hintergrund-Intervall</span>
+            <span class="box-segment-value">{{settings('bg_delay')}} min</span>
+            <div class="box-segment-description">Intervall zum Abfragen neuer Nachrichten, wenn die App geschlossen ist</div>
+        </div>
+    </div>
+    
+    <div class="box box-danger">
+        <div class="box-title">
+            Danger Zone
+        </div>
+        <div class="box-segment box-segment-button">
+            <span ng-click="resetApp()" class="box-segment-label">Reset</span>
+            <div class="box-segment-description">App zur&uuml;cksetzen</div>
+        </div>
+    </div>
+    
+    <div class="box">
+        <div class="box-title">
+            &Uuml;ber
+        </div>
+        <div class="box-segment box-segment-text">
+            <span class="box-segment-label">App Version</span>
+            <span class="box-segment-value">{{appVersion}}</span>
+        </div>
+        <div class="box-segment box-segment-text">
+            <span class="box-segment-label">API Version</span>
+            <span class="box-segment-value">{{apiVersion}}</span>
+        </div>
+    </div>
+    
+</section>
