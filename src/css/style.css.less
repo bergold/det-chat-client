@@ -73,8 +73,12 @@ html {
 }
 body {
     font-family: 'Roboto', sans-serif;
+    font-size: 10pt;
+    cursor: default;
     background: @color-gray-background;
     min-height: 100%;
+    -webkit-user-select: none;
+    user-select: none;
 }
 a {
     text-decoration: none;
@@ -348,7 +352,20 @@ form {
             .box-segment-value {
                 width: 14px;
                 height: 14px;
-                border: 2px solid @color-gray-dark;
+                color: @color-gray-dark;
+                border: 2px solid currentcolor;
+                font-size: 14px;
+                line-height: 14px;
+                
+                &:hover {
+                    color: @color-blue;
+                }
+                &:before {
+                    display: none;
+                }
+                &.active:before {
+                    display: block;
+                }
         	}
         }
         
@@ -568,4 +585,3 @@ form {
         }
     }
 }
-
